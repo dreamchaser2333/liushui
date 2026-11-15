@@ -1,34 +1,35 @@
 <!DOCTYPE html>
-<html lang="zh-Hant" data-skin="ink">
+<html lang="zh-Hant" data-skin="sakura">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#f5f3ed">
-<title>流水帳</title>
+<meta name="theme-color" content="#ffd3df">
+<title>小金庫</title>
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
 <style>
-/* 版面構想：上方一幅畫（水墨遠山／櫻花枝），下方是浮在畫紙上的圓角紙片；記帳用底部彈出的面板與自帶數字鍵。兩套膚色共用同一結構。 */
+/* 版面構想：上方一幅日系小畫（櫻花、紫陽花、夏祭、紅葉、雪見），下方是圓角白卡片；記帳用底部彈出的面板與自帶數字鍵。各外觀共用同一結構，只換顏色與畫。 */
 :root{
-  --bg:#f5f3ed; --card:#fffdf8; --ink:#24272b; --ink2:#7d8185; --line:#e6e1d6;
-  --acc:#b8392c; --inc:#3f6b6b; --soft:#efebe1; --r:16px;
-  --shadow:0 6px 22px rgba(36,39,43,.07);
-  --f-d:"LXGW WenKai TC","Noto Serif TC","Songti TC",serif;
-  --f-b:"Noto Serif TC","Songti TC","PMingLiU",serif;
-  color-scheme:light;
-}
-:root[data-skin="sakura"]{
   --bg:#fff4f6; --card:#ffffff; --ink:#5b4452; --ink2:#ad909d; --line:#fbe0e7;
   --acc:#ee6c92; --inc:#45ad9c; --soft:#ffe9ee; --r:22px;
   --shadow:0 8px 22px rgba(238,108,146,.15);
+  --petal:#f9a8c0; --petal-r:80% 0 80% 0; --pw:11px; --ph:8px;
   --f-d:"LXGW WenKai TC","Zen Maru Gothic",sans-serif;
   --f-b:"Zen Maru Gothic","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+  color-scheme:light;
 }
+:root[data-skin="ajisai"]{--bg:#f3f4fc;--ink:#474a6b;--ink2:#9799b8;--line:#e3e5f6;--acc:#7a7fd6;--inc:#3fae9b;--soft:#e9ebfa;
+  --shadow:0 8px 22px rgba(122,127,214,.16);--petal:#c4b6f0;--petal-r:50% 50% 50% 0;--pw:8px;--ph:8px}
+:root[data-skin="natsu"]{--bg:#eef9fc;--ink:#2f5564;--ink2:#86a9b5;--line:#d6eef4;--acc:#f0704f;--inc:#2a9fb8;--soft:#dff3f8;
+  --shadow:0 8px 22px rgba(42,159,184,.15);--petal:transparent}
+:root[data-skin="momiji"]{--bg:#fdf5ea;--ink:#5c4032;--ink2:#b0927f;--line:#f5e3cd;--acc:#d9582b;--inc:#6f9a4a;--soft:#fbe9d2;
+  --shadow:0 8px 22px rgba(217,88,43,.14);--petal:#e8853a;--petal-r:60% 0 60% 0;--pw:12px;--ph:10px}
+:root[data-skin="yuki"]{--bg:#f2f6fa;--ink:#3d4a5c;--ink2:#93a1b3;--line:#dfe7f0;--acc:#5b83c4;--inc:#4aa89a;--soft:#e4ecf5;
+  --shadow:0 8px 22px rgba(91,131,196,.15);--petal:#ffffff;--petal-r:50%;--pw:7px;--ph:7px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;height:100%}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-b);font-size:16px;line-height:1.55;
@@ -46,9 +47,8 @@ button{cursor:pointer;background:none;border:0;padding:0}
 .hero .date{font-size:13px;color:var(--ink2)}
 .hero h1{font-family:var(--f-d);font-weight:700;font-size:34px;letter-spacing:.14em;margin:2px 0 0;line-height:1.15}
 .hero .verse{font-family:var(--f-d);font-size:15px;color:var(--ink2);letter-spacing:.12em}
-.petal{position:absolute;top:-16px;width:11px;height:8px;background:#f9a8c0;border-radius:80% 0 80% 0;opacity:.85;animation:fall linear infinite}
+.petal{position:absolute;top:-16px;width:var(--pw);height:var(--ph);background:var(--petal);border-radius:var(--petal-r);opacity:.85;animation:fall linear infinite}
 @keyframes fall{to{transform:translate(-70px,210px) rotate(320deg)}}
-:root[data-skin="ink"] .petal{display:none}
 @media (prefers-reduced-motion:reduce){.petal{display:none}.veil,.sheet{transition:none!important}}
 
 main{padding:0 16px;display:flex;flex-direction:column;gap:14px;margin-top:-18px;position:relative}
@@ -104,8 +104,8 @@ h2{font-family:var(--f-d);font-weight:700;font-size:17px;letter-spacing:.16em;ma
 .btn.warn{color:var(--acc)}
 .btns{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .btns.sp{justify-content:space-between}
-.skins{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.skin{border-radius:var(--r);padding:14px;text-align:left;border:2px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.skins{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.skin{border-radius:16px;padding:12px;text-align:left;border:2px solid var(--line);display:flex;flex-direction:column;gap:6px}
 .skin[aria-pressed="true"]{border-color:var(--acc)}
 .skin b{font-family:var(--f-d);font-size:17px}
 .skin span{display:flex;gap:6px}
@@ -170,7 +170,7 @@ textarea{font:12px/1.5 ui-monospace,Menlo,monospace;width:100%;height:170px;back
     <i class="petal" style="left:84%;animation-duration:10s;animation-delay:-7s"></i><i class="petal" style="left:97%;animation-duration:14s;animation-delay:-2s"></i>
     <div class="hero-in">
       <span class="date" id="d-line"></span>
-      <h1>流水帳</h1>
+      <h1>小金庫</h1>
       <span class="verse" id="verse"></span>
     </div>
   </header>
@@ -197,7 +197,7 @@ function monthEnd(m){const [y,mo]=m.split('-').map(Number);return m+'-'+String(n
 function shiftMonth(m,k){const [y,mo]=m.split('-').map(Number);return ymd(new Date(y,mo-1+k,1)).slice(0,7)}
 function defaults(){
   const a=(name,kind,order)=>({name,kind,cur:BASE,opening:0,order});
-  return {v:1,rev:0,skin:'ink',lastBackup:0,tx:{},
+  return {v:1,rev:0,skin:'sakura',lastBackup:0,tx:{},
     cats:{exp:['餐飲','交通','住宿','學業','日用','通訊','娛樂','醫療','其他'],inc:['家裡匯款','稿費','獎助學金','打工','其他']},
     accounts:{post:a('郵局','asset',1),cash:a('現金','asset',2),easycard:a('悠遊卡','asset',3),
       owe:a('欠朋友','payable',4),dorm:a('宿舍費用','payable',5),lent:a('朋友欠我','receivable',6)}};
@@ -265,7 +265,8 @@ let S=defaults(),tab='home',month=ymd(new Date()).slice(0,7),E=null,storeOk=true
 const framed=(()=>{try{return window.self!==window.top}catch(e){return true}})();
 
 /* ---------- 儲存（只在本機） ---------- */
-function idb(){return new Promise((res,rej)=>{const r=indexedDB.open('liushui',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+const within=(p,ms)=>Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),ms))]);
+function idb(){return new Promise((res,rej)=>{const r=indexedDB.open('liushui',1);r.onblocked=()=>rej(new Error('blocked'));r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
 async function idbGet(){const d=await idb();return new Promise((res,rej)=>{const q=d.transaction('kv').objectStore('kv').get('state');q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
 async function idbSet(v){const d=await idb();return new Promise((res,rej)=>{const t=d.transaction('kv','readwrite');t.objectStore('kv').put(v,'state');t.oncomplete=()=>res();t.onerror=()=>rej(t.error)})}
 function save(){
@@ -275,10 +276,11 @@ function save(){
 }
 async function load(){
   let a=null,b=null;
-  try{a=JSON.parse(await idbGet()||'null')}catch(e){}
+  try{a=JSON.parse(await within(idbGet(),2500)||'null')}catch(e){}
   try{b=JSON.parse(localStorage.getItem('liushui')||'null')}catch(e){}
   const pick=[a,b].filter(validBackup).sort((x,y)=>(y.rev||0)-(x.rev||0))[0];
   if(pick)S=Object.assign(defaults(),pick);
+  if(!SKINS[S.skin])S.skin='sakura';
   try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
 }
 
@@ -308,27 +310,68 @@ function drawArt(){
   const c=$('art'),w=c.clientWidth,h=c.clientHeight;if(!w)return;
   const dpr=Math.min(window.devicePixelRatio||1,2.5);c.width=w*dpr;c.height=h*dpr;
   const x=c.getContext('2d');x.setTransform(dpr,0,0,dpr,0,0);x.clearRect(0,0,w,h);
-  (S.skin==='sakura'?drawSakura:drawInk)(x,w,h);
+  ({sakura:drawSakura,ajisai:drawAjisai,natsu:drawNatsu,momiji:drawMomiji,yuki:drawYuki}[S.skin]||drawSakura)(x,w,h);
   const g=x.createLinearGradient(0,h-46,0,h);const bg=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim();
   g.addColorStop(0,bg+'00');g.addColorStop(1,bg);x.fillStyle=g;x.fillRect(0,h-46,w,46);
 }
-function drawInk(x,w,h){
-  const R=rng(7);
-  x.fillStyle='rgba(184,57,44,.82)';x.beginPath();x.arc(w*.8,h*.3,13,0,7);x.fill();
-  for(let i=0;i<3;i++){
-    const base=h*(.46+.17*i),amp=h*(.3-.05*i),p1=R()*6,p2=R()*6,p3=R()*6,f=1.1+i*.5;
-    x.save();try{x.filter='blur('+(2.4-i*.9)+'px)'}catch(e){}
-    x.beginPath();x.moveTo(-10,h+10);
-    for(let px=-10;px<=w+10;px+=4){const t=px/w;
-      const y=base-amp*(.55*Math.sin(t*3.1*f+p1)+.3*Math.sin(t*7.3*f+p2)+.15*Math.sin(t*15*f+p3))*(.6+.4*Math.sin(t*2+p1));
-      x.lineTo(px,y)}
-    x.lineTo(w+10,h+10);x.closePath();
-    const g=x.createLinearGradient(0,base-amp,0,h);const a=.3+.24*i;
-    g.addColorStop(0,'rgba(36,39,43,'+a+')');g.addColorStop(.55,'rgba(36,39,43,'+a*.35+')');g.addColorStop(1,'rgba(36,39,43,0)');
-    x.fillStyle=g;x.fill();x.restore();
-  }
-  x.strokeStyle='rgba(36,39,43,.55)';x.lineWidth=1.1;x.lineCap='round';
-  [[.56,.3,6],[.61,.24,5],[.65,.31,4]].forEach(([bx,by,s])=>{x.beginPath();x.moveTo(w*bx-s,h*by);x.quadraticCurveTo(w*bx-s/2,h*by-s*.7,w*bx,h*by);x.quadraticCurveTo(w*bx+s/2,h*by-s*.7,w*bx+s,h*by);x.stroke()});
+const SKINS={
+  sakura:{name:'櫻花',verse:'今天也好好記下來了嗎',top:'#ffd3df',sw:['#ffd3df','#ee6c92','#45ad9c']},
+  ajisai:{name:'紫陽花',verse:'雨聲裡，慢慢數',top:'#d9dcf7',sw:['#d9dcf7','#7a7fd6','#3fae9b']},
+  natsu:{name:'夏祭',verse:'風鈴響的時候記一筆',top:'#bfe8f5',sw:['#bfe8f5','#f0704f','#2a9fb8']},
+  momiji:{name:'紅葉',verse:'一葉一葉，存起來',top:'#fbdcb0',sw:['#fbdcb0','#d9582b','#6f9a4a']},
+  yuki:{name:'雪見',verse:'安安靜靜地存錢',top:'#cfdcec',sw:['#cfdcec','#5b83c4','#4aa89a']}
+};
+function sky(x,w,h,a,b,c){const g=x.createLinearGradient(0,0,0,h);g.addColorStop(0,a);g.addColorStop(.6,b);g.addColorStop(1,c);x.fillStyle=g;x.fillRect(0,0,w,h)}
+function twig(x,col,pts,x0,y0,x1,y1,x2,y2,lw){x.strokeStyle=col;x.lineWidth=lw;x.lineCap='round';x.beginPath();x.moveTo(x0,y0);x.quadraticCurveTo(x1,y1,x2,y2);x.stroke();
+  for(let t=.25;t<=1;t+=.15){const u=1-t;pts.push([u*u*x0+2*u*t*x1+t*t*x2,u*u*y0+2*u*t*y1+t*t*y2])}}
+function drawAjisai(x,w,h){
+  const R=rng(5);sky(x,w,h,'#d3d7f6','#e8eafb','#f3f4fc');
+  x.strokeStyle='rgba(255,255,255,.75)';x.lineWidth=1.2;x.lineCap='round';
+  for(let i=0;i<46;i++){const px=R()*w*1.1,py=R()*h,l=8+R()*12;x.beginPath();x.moveTo(px,py);x.lineTo(px-l*.28,py+l);x.stroke()}
+  const leaf=(cx,cy,rx,ry,rot)=>{x.save();x.translate(cx,cy);x.rotate(rot);x.fillStyle='#8cc5a2';x.beginPath();x.ellipse(0,0,rx,ry,0,0,7);x.fill();x.strokeStyle='#6fae89';x.lineWidth=1;x.beginPath();x.moveTo(-rx,0);x.lineTo(rx,0);x.stroke();x.restore()};
+  leaf(w*.66,h*.5,22,11,-.5);leaf(w*.9,h*.36,24,12,.6);leaf(w*.8,h*.8,24,12,.2);
+  const cols=['#9aa5ec','#b7a6ea','#8fb8ee','#c9b5f0','#a9c4f3'];
+  const ball=(cx,cy,r)=>{for(let i=0;i<34;i++){const a=R()*6.28,d=Math.sqrt(R())*r,fx=cx+Math.cos(a)*d,fy=cy+Math.sin(a)*d,s=4.2+R()*1.6,rot=R()*1.5;
+    x.fillStyle=cols[Math.floor(R()*cols.length)];for(let k=0;k<4;k++){const b=rot+k*Math.PI/2;x.beginPath();x.arc(fx+Math.cos(b)*s*.62,fy+Math.sin(b)*s*.62,s*.62,0,7);x.fill()}
+    x.fillStyle='rgba(255,255,255,.9)';x.beginPath();x.arc(fx,fy,1.1,0,7);x.fill()}};
+  ball(w*.78,h*.44,30);ball(w*.93,h*.66,26);ball(w*.64,h*.7,22);
+}
+function drawNatsu(x,w,h){
+  const R=rng(11);sky(x,w,h,'#b5e3f3','#def4fa','#eef9fc');
+  const cloud=(cx,cy,s)=>{x.fillStyle='rgba(255,255,255,.92)';[[0,0,22],[-24,6,16],[24,7,17],[-8,-12,17],[12,-9,15]].forEach(([dx,dy,r])=>{x.beginPath();x.arc(cx+dx*s,cy+dy*s,r*s,0,7);x.fill()})};
+  cloud(w*.52,h*.5,1);cloud(w*.16,h*.82,.8);cloud(w*.97,h*.8,.9);
+  const cx=w*.84;x.strokeStyle='#7fb6c6';x.lineWidth=1.2;x.beginPath();x.moveTo(cx,0);x.lineTo(cx,h*.14);x.stroke();
+  x.fillStyle='rgba(255,255,255,.6)';x.strokeStyle='#6fc2da';x.lineWidth=1.6;x.beginPath();x.arc(cx,h*.14+19,19,Math.PI,0);x.lineTo(cx+19,h*.14+26);x.quadraticCurveTo(cx,h*.14+32,cx-19,h*.14+26);x.closePath();x.fill();x.stroke();
+  x.fillStyle='#f0704f';[[-8,12],[6,8],[1,20]].forEach(([dx,dy])=>{x.beginPath();x.arc(cx+dx,h*.14+dy,2.6,0,7);x.fill()});
+  x.strokeStyle='#7fb6c6';x.lineWidth=1;x.beginPath();x.moveTo(cx,h*.14+30);x.lineTo(cx+3,h*.5);x.stroke();
+  x.save();x.translate(cx+3,h*.5);x.rotate(.12);x.fillStyle='#fff';x.strokeStyle='#f0704f';x.lineWidth=1.4;x.beginPath();x.rect(-7,0,14,40);x.fill();x.stroke();
+  x.fillStyle='#f0704f';x.beginPath();x.arc(0,12,2.2,0,7);x.arc(0,24,2.2,0,7);x.fill();x.restore();
+  const fish=(fx,fy,s,rot)=>{x.save();x.translate(fx,fy);x.rotate(rot);x.fillStyle='#f58a5c';x.beginPath();x.moveTo(8*s,0);x.quadraticCurveTo(22*s,-12*s,20*s,-2*s);x.quadraticCurveTo(18*s,0,20*s,2*s);x.quadraticCurveTo(22*s,12*s,8*s,0);x.fill();
+    x.fillStyle='#f0704f';x.beginPath();x.ellipse(0,0,12*s,7*s,0,0,7);x.fill();x.fillStyle='#fff';x.beginPath();x.arc(-6*s,-2*s,2*s,0,7);x.fill();x.fillStyle='#2f5564';x.beginPath();x.arc(-6.4*s,-2*s,1*s,0,7);x.fill();x.restore()};
+  fish(w*.62,h*.74,1,.15);fish(w*.72,h*.6,.75,-.2);
+}
+function drawMomiji(x,w,h){
+  const R=rng(31);sky(x,w,h,'#fad7a6','#fdebd2','#fdf5ea');
+  const pts=[];
+  twig(x,'#6b4a3a',pts,w+6,h*.18,w*.84,h*.34,w*.62,h*.28,4);twig(x,'#6b4a3a',pts,w*.8,h*.3,w*.77,h*.52,w*.66,h*.62,2.6);twig(x,'#6b4a3a',pts,w*.93,h*.24,w*.95,h*.5,w*.89,h*.72,2.4);
+  const cols=['#d9582b','#e8853a','#c63d2f','#f0a94a'];
+  const maple=(cx,cy,r,rot,al)=>{x.save();x.translate(cx,cy);x.rotate(rot);x.globalAlpha=al;x.fillStyle=cols[Math.floor(R()*cols.length)];x.beginPath();
+    for(let k=0;k<14;k++){const a=-Math.PI/2+k*Math.PI/7,rad=k%2?r*.42:(k===0?r:k===2||k===12?r*.92:k===4||k===10?r*.74:r*.5);x[k?'lineTo':'moveTo'](Math.cos(a)*rad,Math.sin(a)*rad)}
+    x.closePath();x.fill();x.restore()};
+  pts.forEach(([px,py])=>{const n=1+Math.floor(R()*2);for(let i=0;i<n;i++)maple(px+(R()-.5)*22,py+(R()-.5)*20,9+R()*6,R()*6,1)});
+  for(let i=0;i<7;i++)maple(w*(.3+R()*.55),h*(.3+R()*.55),5+R()*3,R()*6,.75);
+}
+function drawYuki(x,w,h){
+  const R=rng(17);sky(x,w,h,'#c6d6ea','#e3ecf5','#f2f6fa');
+  const mg=x.createRadialGradient(w*.82,h*.27,4,w*.82,h*.27,46);mg.addColorStop(0,'rgba(255,248,220,.9)');mg.addColorStop(1,'rgba(255,248,220,0)');x.fillStyle=mg;x.fillRect(w*.82-50,h*.27-50,100,100);
+  x.fillStyle='#fff8dc';x.beginPath();x.arc(w*.82,h*.27,15,0,7);x.fill();
+  const hill=(y0,amp,ph,al)=>{x.fillStyle='rgba(255,255,255,'+al+')';x.beginPath();x.moveTo(0,h);for(let px=0;px<=w;px+=6)x.lineTo(px,y0-amp*Math.sin(px/w*3.2+ph));x.lineTo(w,h);x.closePath();x.fill()};
+  hill(h*.74,h*.1,.6,.7);hill(h*.86,h*.08,2.4,.95);
+  const bx=w*.7,by=h*.72;x.fillStyle='rgba(150,170,195,.25)';x.beginPath();x.ellipse(bx,by+13,22,4,0,0,7);x.fill();
+  x.fillStyle='#fff';x.strokeStyle='#cbd7e5';x.lineWidth=1.2;x.beginPath();x.ellipse(bx,by,21,14,0,0,7);x.fill();x.stroke();
+  x.fillStyle='#7fba8d';[[-9,-11,-.9],[-2,-13,-.5]].forEach(([dx,dy,r])=>{x.save();x.translate(bx+dx,by+dy);x.rotate(r);x.beginPath();x.ellipse(0,0,8,3.4,0,0,7);x.fill();x.restore()});
+  x.fillStyle='#d9534f';x.beginPath();x.arc(bx-11,by-2,2,0,7);x.fill();
+  for(let i=0;i<48;i++){x.fillStyle='rgba(255,255,255,'+(.6+R()*.4)+')';x.beginPath();x.arc(R()*w,R()*h*.95,1+R()*2.4,0,7);x.fill()}
 }
 function drawSakura(x,w,h){
   const R=rng(21);
@@ -352,9 +395,9 @@ function drawSakura(x,w,h){
 function paintHero(){
   const d=new Date(),l=lunar(d);
   $('d-line').textContent=d.getFullYear()+' 年 '+(d.getMonth()+1)+' 月 '+d.getDate()+' 日　週'+'日一二三四五六'[d.getDay()]+(l?'　'+l:'');
-  $('verse').textContent=S.skin==='sakura'?'今天也好好記下來了嗎':'一日一記，細水長流';
+  if(!SKINS[S.skin])S.skin='sakura';$('verse').textContent=SKINS[S.skin].verse;
   document.documentElement.dataset.skin=S.skin;
-  const m=document.querySelector('meta[name="theme-color"]');if(m)m.content=S.skin==='sakura'?'#ffd3df':'#f5f3ed';
+  const m=document.querySelector('meta[name="theme-color"]');if(m)m.content=SKINS[S.skin].top;
   drawArt();
 }
 
@@ -435,8 +478,7 @@ function viewMonth(txs){
   return h;
 }
 function viewSettings(txs){
-  const sk=(id,name,cols)=>'<button class="skin" data-act="skin" data-v="'+id+'" aria-pressed="'+(S.skin===id)+'"><b>'+name+'</b><span>'+cols.map(c=>'<i style="background:'+c+'"></i>').join('')+'</span></button>';
-  let h='<div class="card"><div class="head"><h2>外觀</h2></div><div class="skins">'+sk('ink','水墨',['#f5f3ed','#24272b','#b8392c','#3f6b6b'])+sk('sakura','櫻花',['#ffd3df','#5b4452','#ee6c92','#45ad9c'])+'</div></div>';
+  let h='<div class="card"><div class="head"><h2>外觀</h2></div><div class="skins">'+Object.keys(SKINS).map(id=>'<button class="skin" data-act="skin" data-v="'+id+'" aria-pressed="'+(S.skin===id)+'"><b>'+SKINS[id].name+'</b><span>'+SKINS[id].sw.map(c=>'<i style="background:'+c+'"></i>').join('')+'</span></button>').join('')+'</div></div>';
   const catList=(kind,title)=>'<div class="card"><div class="head"><h2>'+title+'</h2><span class="sub">直接點名稱即可修改</span></div>'+
     S.cats[kind].map((c,i)=>'<div class="catrow"><input class="in" data-cat="'+kind+'" data-i="'+i+'" value="'+esc(c)+'" aria-label="分類名稱"><button class="mini" data-act="cat-up" data-k="'+kind+'" data-v="'+i+'" aria-label="上移"'+(i?'':' disabled style="opacity:.3"')+'>↑</button><button class="mini" data-act="cat-del" data-k="'+kind+'" data-v="'+i+'" aria-label="刪除">✕</button></div>').join('')+
     '<div class="catrow" style="grid-template-columns:1fr auto;margin-top:6px"><input class="in" id="newcat-'+kind+'" placeholder="新增分類"><button class="btn" data-act="cat-add" data-k="'+kind+'">加入</button></div></div>';
@@ -572,14 +614,14 @@ function giveFile(name,text,mime){
   if(framed){openSheet('<div class="e-top"><h2 style="flex:1">'+esc(name)+'</h2><button class="mini" data-act="close" aria-label="關閉">✕</button></div><p class="muted">預覽環境不能直接存檔，請複製內容。安裝成 app 後會直接下載檔案。</p><textarea id="x-out" readonly>'+esc(text.replace(/^﻿/,''))+'</textarea><div class="btns" style="justify-content:flex-end"><button class="btn solid" data-act="copy">複製</button></div>');return true}
   try{const u=URL.createObjectURL(new Blob([text],{type:mime}));const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);return true}catch(e){toast('匯出失敗');return false}
 }
-function doBackup(){if(giveFile('流水帳備份-'+ymd(new Date())+'.json',JSON.stringify(S,null,1),'application/json')){S.lastBackup=Date.now();save();if(!framed){paint();toast('備份檔已匯出')}}}
-function doCsv(){giveFile('流水帳-'+ymd(new Date())+'.csv',toCsv(S.accounts,allTx(S.tx)),'text/csv')}
+function doBackup(){if(giveFile('小金庫備份-'+ymd(new Date())+'.json',JSON.stringify(S,null,1),'application/json')){S.lastBackup=Date.now();save();if(!framed){paint();toast('備份檔已匯出')}}}
+function doCsv(){giveFile('小金庫-'+ymd(new Date())+'.csv',toCsv(S.accounts,allTx(S.tx)),'text/csv')}
 let pending=null;
 $('imp').addEventListener('change',async e=>{
   const f=e.target.files[0];e.target.value='';if(!f)return;
   try{const o=JSON.parse(await f.text());if(!validBackup(o))throw 0;pending=o;
     openSheet('<h2>匯入備份檔</h2><p class="muted">備份檔內有 '+Object.keys(o.tx).length+' 筆紀錄、'+Object.keys(o.accounts).length+' 個帳戶。匯入後會取代這支手機上目前的 '+Object.keys(S.tx).length+' 筆紀錄，無法復原。</p><div class="btns sp"><button class="btn" data-act="close">取消</button><button class="btn solid" data-act="imp-ok">取代並匯入</button></div>');
-  }catch(x){toast('這不是流水帳的備份檔')}
+  }catch(x){toast('這不是小金庫的備份檔')}
 });
 
 /* ---------- 事件 ---------- */
@@ -636,9 +678,13 @@ window.addEventListener('resize',drawArt);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden){paintHero();if(!E)paint()}});
 
 /* ---------- 啟動 ---------- */
+function showErr(e){const m=(e&&(e.message||e.reason&&e.reason.message))||String(e);const v=$('view');if(v&&true){v.insertAdjacentHTML('afterbegin','<div class="card hint"><span>啟動時遇到問題：'+esc(m)+'。請截圖傳給 Claude。</span></div>')}}
+window.addEventListener('error',showErr);window.addEventListener('unhandledrejection',showErr);
 (async()=>{
-  await load();paintHero();paint();
-  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawArt);
+  try{await load()}catch(e){showErr(e)}
+  try{paintHero()}catch(e){showErr(e)}
+  try{paint()}catch(e){showErr(e)}
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(drawArt).catch(()=>{});
   if(!framed&&'serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('./sw.js').catch(()=>{});
 })();
 </script>
